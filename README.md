@@ -9,7 +9,7 @@ This mode only support fomrat like "VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK".
 ETC2 Format is a kind of compressed gpu texture fomrat which is popular on many mobile platform.
 more info : https://registry.khronos.org/DataFormat/specs/1.3/dataformat.1.3.html#ETC2.
 
-work flow:
+Work Flow:
 1. Fetch compressed image data
 2. Decode image to RGBA8 Format.
 3. Truncate RGBA8 -> RGB(16bit pix) then write it to RAM, because the LCD only support the 16bit color.
