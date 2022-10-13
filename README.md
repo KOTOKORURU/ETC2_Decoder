@@ -20,3 +20,6 @@ Tb         -> Testbench file
 RTL        -> LCD & ETC2 Decoder Verilog Implementation
 ipcore_dir -> PLL ip
 rom        -> 1 ROM ip for src image, 1 RAM ip for dst image
+
+Example:
+![image]https://github.com/KOTOKORURU/ETC2-Decoder/blob/master/example.png)
