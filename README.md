@@ -10,7 +10,7 @@ This mode only support fomrat like "VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK".
 
 ETC2 Format is a kind of compressed gpu texture fomrat which is popular on many mobile platform.
 
-more info : https://registry.khronos.org/DataFormat/specs/1.3/dataformat.1.3.html#ETC2.
+More info : https://registry.khronos.org/DataFormat/specs/1.3/dataformat.1.3.html#ETC2.
 
 Work Flow:
 1. Fetch compressed image data
