@@ -1,5 +1,6 @@
 # ETC2-Decoder
 Platform : Xilinx Spartan6
+
 system clock   : 50mhz
 LCD work clock : 33mhz
 
