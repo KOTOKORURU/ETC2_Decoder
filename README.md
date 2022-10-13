@@ -27,6 +27,12 @@ ipcore_dir -> PLL ip
 
 rom        -> 1 ROM ip for src image, 1 RAM ip for dst image
 
+elina.ktx  -> Source Compressed ETC2 Image.
+
+elina.png  -> Image Decompressed from ETC2.
+
+elina.coe  -> Source Compressed ETC2 Image file to init FPGA Rom.
+
 Example:
 
 ![image](https://github.com/KOTOKORURU/ETC2-Decoder/blob/master/example.png)
