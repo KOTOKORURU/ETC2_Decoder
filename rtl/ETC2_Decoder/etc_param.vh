@@ -1,15 +1,16 @@
+<<<<<<< HEAD
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: LickAss
+// Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    13:11:55 08/06/2022 
 // Design Name: 
 // Module Name:    etc_param 
-// Project Name: 
+// Project Name:   ETC2 Decoder
 // Target Devices: 
 // Tool versions: 
-// Description: 
+// Description:    Some Defines
 //
 // Dependencies: 
 //
@@ -36,4 +37,3 @@ function automatic [7:0] clamp0_255;
     endcase
     clamp0_255 = data_out;
   end
-endfunction
