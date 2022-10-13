@@ -2,6 +2,7 @@
 Platform : Xilinx Spartan6
 
 system clock   : 50mhz
+
 LCD work clock : 33mhz
 
 This is ETC2 Decode RTL implementation(RGB Format).
@@ -18,9 +19,12 @@ Work Flow:
 4. align the LCD VSYNC/HSYNC signal, Read the RAM Data and present the Image on LCD.
 
 
-Tb         -> Testbench file
-RTL        -> LCD & ETC2 Decoder Verilog Implementation
+tb         -> Testbench file
+
+rtl        -> LCD & ETC2 Decoder Verilog Implementation
+
 ipcore_dir -> PLL ip
+
 rom        -> 1 ROM ip for src image, 1 RAM ip for dst image
 
 Example:
