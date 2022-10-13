@@ -19,19 +19,19 @@ Work Flow:
 4. align the LCD VSYNC/HSYNC signal, Read the RAM Data and present the Image on LCD.
 
 
-tb         -> Testbench file
+tb          -> Testbench file
 
-rtl        -> LCD & ETC2 Decoder Verilog Implementation
+rtl         -> LCD & ETC2 Decoder Verilog Implementation
 
-ipcore_dir -> PLL ip
+ipcore_dir  -> PLL ip
 
-rom        -> 1 ROM ip for src image, 1 RAM ip for dst image
+rom         -> 1 ROM ip for src image, 1 RAM ip for dst image
 
-elina.ktx  -> Source Compressed ETC2 Image.
+elina.ktx   -> Source Compressed ETC2 Image.
 
-elina.png  -> Image Decompressed from ETC2.
+elina.png   -> Image Decompressed from ETC2.
 
-elina.coe  -> Source Compressed ETC2 Image file to init FPGA Rom.
+elina.coe   -> Source Compressed ETC2 Image file to init FPGA Rom.
 
 Example:
 
