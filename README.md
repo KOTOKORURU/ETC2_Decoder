@@ -8,7 +8,7 @@ LCD work clock : 33mhz
 This is ETC2 Decode RTL implementation(RGB Format).
 This mode only support format like "VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK".
 
-ETC2 Format is a kind of compressed gpu texture fomrat which is popular on many mobile platform.
+ETC2 Format is a kind of compressed gpu texture format which is popular on many mobile platform.
 
 More info : https://registry.khronos.org/DataFormat/specs/1.3/dataformat.1.3.html#ETC2.
 
