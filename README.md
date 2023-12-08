@@ -8,7 +8,7 @@ LCD work clock : 33mhz
 This is ETC2 Decode RTL implementation(RGB Format).
 This mode only support format like "VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK".
 
-ETC2 Format is a kind of compressed gpu texture fomrat which is popular on many mobile platform.
+ETC2 is a kind of compressed gpu texture format which is popular on many mobile platforms.
 
 More info : https://registry.khronos.org/DataFormat/specs/1.3/dataformat.1.3.html#ETC2.
 
@@ -19,19 +19,21 @@ Work Flow:
 4. align the LCD VSYNC/HSYNC signal, Read the RAM Data and present the Image on LCD.
 
 
-tb          -> Testbench file
+tb            -> Testbench file
 
-rtl         -> LCD & ETC2 Decoder Verilog Implementation
+rtl           -> LCD & ETC2 Decoder Verilog Implementation
 
-ipcore_dir  -> PLL ip
+ipcore_dir    -> PLL ip
 
-rom         -> 1 ROM ip for src image, 1 RAM ip for dst image
+rom           -> 1 ROM ip for src image, 1 RAM ip for dst image
 
-elina.ktx   -> Source Compressed ETC2 Image.
+elina.ktx     -> Source Compressed ETC2 Image.
 
-elina.png   -> Image Decompressed from ETC2.
+elina.png     -> Image Decompressed from ETC2.
 
-elina.coe   -> Source Compressed ETC2 Image file to init FPGA Rom.
+elina.coe     -> Source Compressed ETC2 Image file to init FPGA Rom.
+
+tft_color.ucf -> Port Definition
 
 Example:
 
