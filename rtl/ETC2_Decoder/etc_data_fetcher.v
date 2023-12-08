@@ -54,6 +54,7 @@ reg block_valid;
 reg addr_valid;
 reg[10:0] blockIndx;
 reg[1:0]  state;
+reg[1:0]  qState;
 reg[31:0] addr;
 reg pix_valid;
 
@@ -117,6 +118,7 @@ end
 */
 
 // SM for data fetch
+/*
 always@(posedge sclk) begin
     state <= START;
     if(rsrt) begin 
@@ -167,6 +169,74 @@ always@(posedge sclk) begin
         state <= FINISH;
     endcase
     end
+end
+*/
+
+// SM for data fetch
+always@(*) begin
+    case(qState)
+    START : begin
+        if(!rsrt) state = BEGIN_FETCH;
+    end
+    BEGIN_FETCH : begin
+        if(!rsrt) state = KEEP_BLOCK;
+    end
+    KEEP_BLOCK : begin
+        if(!rsrt) state = KEEP_BLOCK;
+        if(block_finish && !rsrt) begin
+            if(blockIndx == BLOCK_CNT) state = FINISH;
+            else                       state = START;
+        end
+    end
+    FINISH : begin
+      if(!rsrt) state = FINISH;
+    end
+    default:
+      if(!rsrt) state = FINISH;
+    endcase
+end
+
+always@(posedge sclk) begin
+    if(rsrt) qState <= START;
+    else     qState <= state;
+end
+
+always@(posedge sclk) begin
+    if(rsrt)                       addr <= 32'd0;
+    else if(qState == BEGIN_FETCH) addr <= addr + 4'd8;
+    else                           addr <= addr;
+end
+
+always@(posedge sclk) begin
+    if(rsrt || qState == FINISH)   block <= 64'd0;
+    else if(qState == BEGIN_FETCH) block <= data_out;
+    else                           block <= block;
+end
+
+always@(posedge sclk) begin
+    if(rsrt || block_finish || qState == START)
+        addr_valid <= 1'b1;
+    else if(qState == BEGIN_FETCH || qState == FINISH) 
+        addr_valid <= 1'b0;
+    else
+        addr_valid <= addr_valid;
+end
+
+always@(posedge sclk) begin
+    if (qState == BEGIN_FETCH
+    || (qState == KEEP_BLOCK && !block_finish)) block_valid <= 1'b1;
+    else                                        block_valid <= 1'b0;
+end
+
+always@(posedge sclk) begin
+    if(rsrt)                         blockIndx <= 11'd0;
+    else if(qState == KEEP_BLOCK) begin
+       if(block_finish) begin
+          if(blockIndx == BLOCK_CNT) blockIndx <= 11'd0;
+          else                       blockIndx <= blockIndx + 1'd1;
+       end
+    end
+    else                             blockIndx <= blockIndx;
 end
 
 // Update the Block
