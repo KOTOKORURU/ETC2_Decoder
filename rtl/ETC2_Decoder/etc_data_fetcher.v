@@ -175,22 +175,21 @@ end
 // SM for data fetch
 always@(*) begin
     case(qState)
-    START : begin
+    START :
         if(!rsrt) state = BEGIN_FETCH;
-    end
-    BEGIN_FETCH : begin
+    BEGIN_FETCH :
         if(!rsrt) state = KEEP_BLOCK;
-    end
     KEEP_BLOCK : begin
         if(!rsrt) state = KEEP_BLOCK;
         if(block_finish && !rsrt) begin
-            if(blockIndx == BLOCK_CNT) state = FINISH;
-            else                       state = START;
+            if(blockIndx == BLOCK_CNT)
+                state = FINISH;
+            else
+                state = START;
         end
     end
-    FINISH : begin
-      if(!rsrt) state = FINISH;
-    end
+    FINISH :
+        if(!rsrt) state = FINISH;
     default:
       if(!rsrt) state = FINISH;
     endcase
@@ -276,11 +275,12 @@ always@(posedge sclk) begin
         pix_valid <= 1'b1;
         pixIdx    <= pixIdx;
     end
-    
-    if(block_finish) begin
-        block_finish <= 1'b0;
-    end
 end
+
+always@(posedge sclk) begin
+    if(block_finish) block_finish <= 1'b0;
+end
+
 
 // Etc2 Compressed Image 128x128 -> 32x32
 rom_1024x64 imageRom (
