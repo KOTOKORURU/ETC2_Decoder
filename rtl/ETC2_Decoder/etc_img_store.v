@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 //
 // Create Date:    20:52:56 08/31/2022 
@@ -68,8 +68,8 @@ assign write_finish = rgb_rtr && write_valid;
 
 always@(*) begin
     write_valid = 1'b0;
-    if(rsrt)         write_valid = 1'b0;
-    else if(rgb_rtr) write_valid = 1'b1;
+    if (rsrt)         write_valid = 1'b0;
+    else if (rgb_rtr) write_valid = 1'b1;
 end
 
 

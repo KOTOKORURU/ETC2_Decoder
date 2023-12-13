@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -71,12 +71,12 @@ always@(*)begin
     tab      = 3'b0;
     selector = 1'b0;
     
-    if(rsrt) begin
+    if (rsrt) begin
         index = 2'b0;
     end
-    else if(rtr) begin
+    else if (rtr) begin
         index = (block[pixIdx + 5'd16] << 1 | block[pixIdx]);
-        if((flipped && (pixIdx[1:0] < 2'd2)) || (!flipped && (pixIdx[3] != 1'b1))) begin
+        if ((flipped && (pixIdx[1:0] < 2'd2)) || (!flipped && (pixIdx[3] != 1'b1))) begin
             tab = block[39:37];
             selector = 1'b0;
         end
@@ -93,7 +93,7 @@ reg[1:0] index_table;
 
 always@(*) begin
     index_table = 2'd0;
-    if(rtr) begin
+    if (rtr) begin
         case(index)
             2'b00: index_table = 2'd2;
             2'b01: index_table = 2'd3;
@@ -107,8 +107,8 @@ end
 always@(*) begin
     modifier = 16'd0;
     
-    if(rtr) begin
-        if(flag_punchThrough != 1'b0 && index_table == 2'b10)begin
+    if (rtr) begin
+        if (flag_punchThrough != 1'b0 && index_table == 2'b10)begin
             modifier = 16'd0;
         end
         else begin
@@ -163,16 +163,16 @@ always@(*) begin
     b_q = 15'd0;
     a_q = 15'd0;
     
-    if(rsrt) begin
+    if (rsrt) begin
         r_q = 15'd0;
         g_q = 15'd0;
         b_q = 15'd0;
         a_q = 15'd0;
     end
     
-    if(rtr) begin
+    if (rtr) begin
     
-        if(selector) begin
+        if (selector) begin
             r_q = baseColor_1[7 : 0] + modifier;
             g_q = baseColor_1[15: 8] + modifier;
             b_q = baseColor_1[23:16] + modifier;
@@ -183,7 +183,7 @@ always@(*) begin
             b_q = baseColor_0[23:16] + modifier;
         end
         
-        if(aplha || flag_punchThrough) begin
+        if (aplha || flag_punchThrough) begin
             a_q = 8'd255;
         end
         
@@ -209,14 +209,14 @@ always@(posedge sclk) begin
     a_d   <= 8'd0;
     valid <= 1'b0;
     
-    if(rsrt) begin
+    if (rsrt) begin
         r_d   <= 8'd0;
         g_d   <= 8'd0;
         b_d   <= 8'd0;
         valid <= 1'b0;
     end
 
-    if(rtr) begin
+    if (rtr) begin
         valid <= 1'b1;
         r_d   <= r_q;
         g_d   <= g_q;

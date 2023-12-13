@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -84,11 +84,11 @@ always@(posedge tft_sclk_33m) begin
         rd_en     <= 1'b0;
     end
     else begin
-        if(read_addr == (PIC_SIZE - 1'd1)) begin
+        if (read_addr == (PIC_SIZE - 1'd1)) begin
             read_addr <= 31'd0;
             rd_en     <= 1'b0;
         end
-        else if(image_start) begin
+        else if (image_start) begin
             read_addr <= read_addr + 2'd1;
             rd_en     <= 1'b1;
         end
@@ -103,26 +103,26 @@ end
 always@(posedge tft_sclk_33m) begin
     if(!srst)
         rgb <= 16'd0;
-    if(decode_finished) begin
-    if(( pix_x >= 0) && (pix_x < H_VALID / 10 * 1))
+    if (decode_finished) begin
+    if (( pix_x >= 0) && (pix_x < H_VALID / 10 * 1))
         rgb <= RED;
-    else if(( pix_x >= (H_VALID / 10 * 1)) && (pix_x < (H_VALID / 10 * 2)))
+    else if (( pix_x >= (H_VALID / 10 * 1)) && (pix_x < (H_VALID / 10 * 2)))
         rgb <= ORANGE;
-    else if(( pix_x >= (H_VALID / 10 * 2)) && (pix_x < (H_VALID / 10 * 3)))
+    else if (( pix_x >= (H_VALID / 10 * 2)) && (pix_x < (H_VALID / 10 * 3)))
         rgb <= YELLOW;
-    else if(( pix_x >= (H_VALID / 10 * 3)) && (pix_x < (H_VALID / 10 * 4)))
+    else if (( pix_x >= (H_VALID / 10 * 3)) && (pix_x < (H_VALID / 10 * 4)))
         rgb <= GREEN;
-    else if(( pix_x >= (H_VALID / 10 * 4)) && (pix_x < (H_VALID / 10 * 5)))
+    else if (( pix_x >= (H_VALID / 10 * 4)) && (pix_x < (H_VALID / 10 * 5)))
         rgb <= CYAN;
-    else if(( pix_x >= (H_VALID / 10 * 5)) && (pix_x < (H_VALID / 10 * 6)))
+    else if (( pix_x >= (H_VALID / 10 * 5)) && (pix_x < (H_VALID / 10 * 6)))
         rgb <= BLUE;
-    else if(( pix_x >= (H_VALID / 10 * 6)) && (pix_x < (H_VALID / 10 * 7)))
+    else if (( pix_x >= (H_VALID / 10 * 6)) && (pix_x < (H_VALID / 10 * 7)))
         rgb <= PURPPLE;
-    else if(( pix_x >= (H_VALID / 10 * 7)) && (pix_x < (H_VALID / 10 * 8)))
+    else if (( pix_x >= (H_VALID / 10 * 7)) && (pix_x < (H_VALID / 10 * 8)))
         rgb <= BLACK;
-    else if(( pix_x >= (H_VALID / 10 * 8)) && (pix_x < (H_VALID / 10 * 9)))
+    else if (( pix_x >= (H_VALID / 10 * 8)) && (pix_x < (H_VALID / 10 * 9)))
         rgb <= WHITE;
-    else if(( pix_x >= (H_VALID / 10 * 9)) && (pix_x < (H_VALID)))
+    else if (( pix_x >= (H_VALID / 10 * 9)) && (pix_x < (H_VALID)))
         rgb <= GRAY;
     else
         rgb <= BLACK;

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 

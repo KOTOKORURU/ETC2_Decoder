@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -68,7 +68,7 @@ always@(*) begin
     widthX2 = 32'd0;
     //widthX3 = 32'd0;
     
-    if(addr_rtr) begin
+    if (addr_rtr) begin
         widthX2 = width << 1;
         //widthX3 = widthX2 + width;
         case(pixIdx)
@@ -98,7 +98,7 @@ reg[31:0] addr_d;
 always@(*) begin
     addr_d = 32'd0;
     
-    if(addr_rtr) begin
+    if (addr_rtr) begin
         addr_d = addr + curPos;
     end
 end
@@ -108,7 +108,7 @@ always@(posedge sclk) begin
     final_addr <= 32'd0;
     valid      <= 1'b0;
 
-    if(addr_rtr) begin
+    if (addr_rtr) begin
         final_addr <= addr;
         valid      <= 1'b1; 
     end

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -74,7 +74,7 @@ assign block_out  = block;
 assign image_finished = (state == FINISH && rsrt != 1'b1) ? 1'b1 : 1'b0;
 /* for 32 bit data output
 always@(posedge sclk) begin
-    if(rsrt) begin 
+    if (rsrt) begin 
         state       <= UNKNOWN;
         addr_valid  <= 1'b0;
         addr        <= 32'd0;
@@ -104,7 +104,7 @@ always@(posedge sclk) begin
         addr       <= addr;
         block      <= block;
         state      <= KEEP_BLOCK;
-        if(block_finish) begin 
+        if (block_finish) begin 
             addr_valid   <= 1'b1;
             block_valid  <= 1'b0;
             state        <= BEGIN_FETCH;
@@ -121,7 +121,7 @@ end
 /*
 always@(posedge sclk) begin
     state <= START;
-    if(rsrt) begin 
+    if (rsrt) begin 
         addr_valid  <= 1'b1;
         addr        <= 32'd0;
         block_valid <= 1'b0;
@@ -147,10 +147,10 @@ always@(posedge sclk) begin
         addr       <= addr;
         block      <= block;
         state      <= KEEP_BLOCK;
-        if(block_finish) begin
+        if (block_finish) begin
             addr_valid   <= 1'b1;
             block_valid  <= 1'b0;
-            if(blockIndx == BLOCK_CNT) begin
+            if (blockIndx == BLOCK_CNT) begin
                 state    <= FINISH;
             end
             else begin
@@ -174,48 +174,46 @@ end
 
 // SM for data fetch
 always@(*) begin
-    case(qState)
-    START :
-        if(!rsrt) state = BEGIN_FETCH;
-    BEGIN_FETCH :
-        if(!rsrt) state = KEEP_BLOCK;
-    KEEP_BLOCK : begin
-        if(!rsrt) state = KEEP_BLOCK;
-        if(block_finish && !rsrt) begin
-            if(blockIndx == BLOCK_CNT)
+    case({qState, ~rsrt})
+    {START , 1'b1}:       state = BEGIN_FETCH;
+    {BEGIN_FETCH, 1'b1} : state = KEEP_BLOCK;
+    {FINISH, 1'b1}: state = FINISH;
+    {KEEP_BLOCK, 1'b1}
+    : begin
+        state = KEEP_BLOCK;
+        if (block_finish) begin
+            if (blockIndx == BLOCK_CNT)
                 state = FINISH;
             else
                 state = START;
         end
     end
-    FINISH :
-        if(!rsrt) state = FINISH;
-    default:
-      if(!rsrt) state = FINISH;
+
+    default: state = FINISH;
     endcase
 end
 
 always@(posedge sclk) begin
-    if(rsrt) qState <= START;
+    if (rsrt) qState <= START;
     else     qState <= state;
 end
 
 always@(posedge sclk) begin
-    if(rsrt)                       addr <= 32'd0;
-    else if(qState == BEGIN_FETCH) addr <= addr + 4'd8;
+    if (rsrt)                       addr <= 32'd0;
+    else if (qState == BEGIN_FETCH) addr <= addr + 4'd8;
     else                           addr <= addr;
 end
 
 always@(posedge sclk) begin
-    if(rsrt || qState == FINISH)   block <= 64'd0;
-    else if(qState == BEGIN_FETCH) block <= data_out;
+    if (rsrt || qState == FINISH)   block <= 64'd0;
+    else if (qState == BEGIN_FETCH) block <= data_out;
     else                           block <= block;
 end
 
 always@(posedge sclk) begin
-    if(rsrt || block_finish || qState == START)
+    if (rsrt || block_finish || qState == START)
         addr_valid <= 1'b1;
-    else if(qState == BEGIN_FETCH || qState == FINISH) 
+    else if (qState == BEGIN_FETCH || qState == FINISH) 
         addr_valid <= 1'b0;
     else
         addr_valid <= addr_valid;
@@ -228,10 +226,10 @@ always@(posedge sclk) begin
 end
 
 always@(posedge sclk) begin
-    if(rsrt)                         blockIndx <= 11'd0;
-    else if(qState == KEEP_BLOCK) begin
-       if(block_finish) begin
-          if(blockIndx == BLOCK_CNT) blockIndx <= 11'd0;
+    if (rsrt)                         blockIndx <= 11'd0;
+    else if (qState == KEEP_BLOCK) begin
+       if (block_finish) begin
+          if (blockIndx == BLOCK_CNT) blockIndx <= 11'd0;
           else                       blockIndx <= blockIndx + 1'd1;
        end
     end
@@ -240,15 +238,15 @@ end
 
 // Update the Block
 always@(posedge sclk) begin
-    if(rsrt) begin
+    if (rsrt) begin
         blockX <= 8'd0;
         blockY <= 8'd0;
     end
-    else if(block_finish) begin
-        if(blockX < BLOCK_X ) begin
+    else if (block_finish) begin
+        if (blockX < BLOCK_X ) begin
             blockX <= blockX + 1'd1;
         end
-        else if(blockY < BLOCK_Y) begin
+        else if (blockY < BLOCK_Y) begin
             blockY <= blockY + 1'd1;
             blockX <= 6'd0;
         end
@@ -257,28 +255,24 @@ end
 
 // Update the pix Id for Block
 always@(posedge sclk) begin
-    
-    if(rsrt) begin
+    if (rsrt) begin
         pixIdx       <= 5'd0;
         pix_valid    <= 1'b0;
         block_finish <= 1'b0;
     end
-    if(pixIdx > 4'd15) begin
+    if (pixIdx > 4'd15) begin
         block_finish <= 1'b1;
         pixIdx       <= 5'd0;
     end
-    else if(write_finish) begin
+    else if (write_finish) begin
         pix_valid <= 1'b0;
         pixIdx    <= pixIdx + 1'd1;
     end
-    else if(block_valid) begin
+    else if (block_valid) begin
         pix_valid <= 1'b1;
         pixIdx    <= pixIdx;
     end
-end
-
-always@(posedge sclk) begin
-    if(block_finish) block_finish <= 1'b0;
+    if (block_finish) block_finish <= 1'b0;
 end
 
 

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -114,7 +114,7 @@ always@(*) begin
     baseColor_2_q0 = 24'd0;
     dIndex         = 3'd0;
     bigger         = 1'b0;
-    if(rtr && mode == `TMode) begin
+    if (rtr && mode == `TMode) begin
         dIndex = (bits_35_34 << 1'b1 | bits_32);
         tmode_color_red       = (bits_60_59 << 2'd2 | bits_57_56);
         baseColor_0_q0[7 : 0] = {2{tmode_color_red}};
@@ -125,7 +125,7 @@ always@(*) begin
         baseColor_2_q0[15: 8] = {2{bits_43_40}};
         baseColor_2_q0[23:16] = {2{bits_39_36}};
     end
-    else if(rtr && mode == `HMode) begin
+    else if (rtr && mode == `HMode) begin
         dIndex = ((bits_34 << 2'd2) | bits_32);
         hmode_color_green     = (bits_58_56 << 1 | bits_52);
         hmode_color_blue      = (bits_51 << 2'd3 | bits_49_47);
@@ -146,7 +146,7 @@ end
 reg[2:0] dIndex_2;
 always@(*) begin
     dIndex_2 = 3'd0;
-    if(rtr && mode == `HMode) begin
+    if (rtr && mode == `HMode) begin
         dIndex_2 = dIndex | bigger;
     end
 end
@@ -154,7 +154,7 @@ end
 reg[6:0] d;
 always@(*) begin
     d = 7'd0;
-    if(rtr && mode == `TMode) begin
+    if (rtr && mode == `TMode) begin
     case(dIndex)
         3'd0 : d = 7'd3;
         3'd1 : d = 7'd6;
@@ -206,7 +206,7 @@ always@(*) begin
         baseColor_3_q[19:10]  = 30'd0;
         baseColor_3_q[29:20]  = 30'd0;
     
-    if(rtr && mode == `TMode) begin
+    if (rtr && mode == `TMode) begin
         baseColor_0_q[9 : 0] = baseColor_0_q0[7  : 0];
         baseColor_0_q[19:10] = baseColor_0_q0[15 : 8];
         baseColor_0_q[29:20] = baseColor_0_q0[23 :16];
@@ -231,7 +231,7 @@ always@(*) begin
         baseColor_3_q[19:10] = clamp0_255(baseColor_3_q[19:10]);
         baseColor_3_q[29:20] = clamp0_255(baseColor_3_q[29:20]);
     end
-    else if(rtr && mode == `HMode) begin
+    else if (rtr && mode == `HMode) begin
         baseColor_0_q[9 : 0] = baseColor_0_q0[7  :0] + d;
         baseColor_0_q[19:10] = baseColor_0_q0[15 :8] + d;
         baseColor_0_q[29:20] = baseColor_0_q0[23:16] + d;
@@ -284,7 +284,7 @@ always@(posedge sclk) begin
     baseColor_2_d <= 24'd0;
     baseColor_3_d <= 24'd0;
     valid         <= 1'b0;
-    if(rtr && mode == `TMode) begin
+    if (rtr && mode == `TMode) begin
         valid                <= 1'b1;
         baseColor_0_d[7 : 0] <= baseColor_0_q[7 : 0];
         baseColor_0_d[15: 8] <= baseColor_0_q[17:10];
@@ -302,7 +302,7 @@ always@(posedge sclk) begin
         baseColor_3_d[15: 8] <= baseColor_3_q[17:10];
         baseColor_3_d[23:16] <= baseColor_3_q[27:20];
     end
-    else if(rtr && mode == `HMode) begin
+    else if (rtr && mode == `HMode) begin
         valid                <= 1'b1;
         baseColor_0_d[7 : 0] <= baseColor_0_q[7 : 0];
         baseColor_0_d[15: 8] <= baseColor_0_q[17:10];

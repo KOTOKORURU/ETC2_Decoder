@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -95,7 +95,7 @@ always@(posedge sclk) begin
     baseColor_1_d <= 24'd0;
     baseColor_2_d <= 24'd0;
     valid         <= 1'b0;
-    if(mode == `Planar && rtr) begin
+    if (mode == `Planar && rtr) begin
         valid <= 1'b1;
         baseColor_0_d[7 : 0] <= {bits_62_57[5:0], bits_62_57[5:4]};
         baseColor_0_d[15: 8] <= {bits_56, bits_54_49[5:0], bits_56};

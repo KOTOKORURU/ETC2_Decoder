@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -76,7 +76,7 @@ always @(*) begin
     gDiff  = 8'd0;
     bDiff  = 8'd0;
 
-    if(rsrt) begin
+    if (rsrt) begin
         red    = 8'd0;
         green  = 8'd0;
         blue   = 8'd0;
@@ -106,22 +106,22 @@ always@(posedge sclk) begin
     mode_rts_d <= 1'b0;
     
     mode_d     <= `Differential;
-    if(rsrt) begin
+    if (rsrt) begin
         mode_rts_d <= 1'b0;
         mode_d     <= `Differential;
     end
-    else if(mode_rtr) begin
+    else if (mode_rtr) begin
         mode_rts_d  <= 1'b1;
-        if((bits_33 == 1'b0) && (punchThrough == 1'b0)) begin
+        if ((bits_33 == 1'b0) && (punchThrough == 1'b0)) begin
             mode_d <= `Individual;
         end
-        else if(red < 8'd0 || red > 8'd31) begin
+        else if (red < 8'd0 || red > 8'd31) begin
             mode_d <= `TMode;
         end
-        else if(green < 8'd0 || green > 8'd31) begin
+        else if (green < 8'd0 || green > 8'd31) begin
             mode_d <= `HMode;
         end
-        else if(blue < 8'd0 || blue > 8'd31) begin
+        else if (blue < 8'd0 || blue > 8'd31) begin
             mode_d <= `Planar;
         end
     end

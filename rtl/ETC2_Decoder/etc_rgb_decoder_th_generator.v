@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -64,10 +64,10 @@ reg[1:0] index;
 always@(*) begin
     index = 2'b0;
 
-    //if(rsrt) begin
+    //if (rsrt) begin
         //index = 2'b0;
     //end
-    if(rtr) begin
+    if (rtr) begin
         index = (block[pixIdx + 5'd16] << 1 | block[pixIdx]);
     end
 end
@@ -90,7 +90,7 @@ always@(posedge sclk) begin
     b_d   <= 8'd0;
     a_d   <= 8'd0;
     valid <= 1'b0;
-    if((index != 2 || flag_punchThrough == 1'b0) && rtr) begin
+    if ((index != 2 || flag_punchThrough == 1'b0) && rtr) begin
         case(index) 
         2'b00 : begin 
             r_d <= baseColor_0[7 : 0];
@@ -116,7 +116,7 @@ always@(posedge sclk) begin
         valid <= 1'b1;
     end
     
-    if(aplha || flag_punchThrough == 1'b0) begin
+    if (aplha || flag_punchThrough == 1'b0) begin
         a_d <= 8'd255;
     end
 end

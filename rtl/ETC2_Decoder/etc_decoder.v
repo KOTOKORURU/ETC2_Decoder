@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -56,7 +56,7 @@ reg write_finish;
 wire write_finish_d;
 always@(posedge sclk) begin
     write_finish <= 1'b0;
-    if(rst) begin
+    if (rst) begin
         write_finish <= 1'b0;
     end
     else begin

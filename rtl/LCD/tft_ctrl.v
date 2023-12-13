@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: LickAss
+// Company: MetalGear
 // Engineer: Yuhao(KOTOKORURU)
 // 
 // Create Date:    20:52:56 08/31/2022 
@@ -82,7 +82,7 @@ end
 always@(posedge tft_sclk_33m) begin
     if(!srst || (cnt_v == V_TOTAL - 10'd1 && cnt_h == H_TOTAL - 10'd1) || !decode_finished)
         cnt_v <= 11'd0;
-    else if(cnt_h == H_TOTAL - 10'd1)
+    else if (cnt_h == H_TOTAL - 10'd1)
         cnt_v <= cnt_v + 10'd1;
     else
         cnt_v <= cnt_v;
