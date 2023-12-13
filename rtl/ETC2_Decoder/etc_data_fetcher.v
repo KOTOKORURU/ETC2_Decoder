@@ -117,8 +117,7 @@ always@(posedge sclk) begin
 end
 */
 
-// SM for data fetch
-/*
+/* SM for data fetch
 always@(posedge sclk) begin
     state <= START;
     if (rsrt) begin 
