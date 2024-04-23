@@ -174,20 +174,18 @@ end
 // SM for data fetch
 always@(*) begin
     case({qState, ~rsrt})
-    {START , 1'b1}:       state = BEGIN_FETCH;
-    {BEGIN_FETCH, 1'b1} : state = KEEP_BLOCK;
-    {FINISH, 1'b1}: state = FINISH;
-    {KEEP_BLOCK, 1'b1}
-    : begin
-        state = KEEP_BLOCK;
-        if (block_finish) begin
+        {START , 1'b1}      : state = BEGIN_FETCH;
+        {BEGIN_FETCH, 1'b1} : state = KEEP_BLOCK;
+        {FINISH, 1'b1}      : state = FINISH;
+        {KEEP_BLOCK, 1'b1}  : begin
+            state = KEEP_BLOCK;
+            if (block_finish) begin
             if (blockIndx == BLOCK_CNT)
                 state = FINISH;
             else
                 state = START;
         end
     end
-
     default: state = FINISH;
     endcase
 end
