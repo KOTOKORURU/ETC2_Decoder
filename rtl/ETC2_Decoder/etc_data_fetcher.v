@@ -198,13 +198,13 @@ end
 always@(posedge sclk) begin
     if (rsrt)                       addr <= 32'd0;
     else if (qState == BEGIN_FETCH) addr <= addr + 4'd8;
-    else                           addr <= addr;
+    else                            addr <= addr;
 end
 
 always@(posedge sclk) begin
     if (rsrt || qState == FINISH)   block <= 64'd0;
     else if (qState == BEGIN_FETCH) block <= data_out;
-    else                           block <= block;
+    else                            block <= block;
 end
 
 always@(posedge sclk) begin
@@ -227,10 +227,10 @@ always@(posedge sclk) begin
     else if (qState == KEEP_BLOCK) begin
        if (block_finish) begin
           if (blockIndx == BLOCK_CNT) blockIndx <= 11'd0;
-          else                       blockIndx <= blockIndx + 1'd1;
+          else                        blockIndx <= blockIndx + 1'd1;
        end
     end
-    else                             blockIndx <= blockIndx;
+    else                              blockIndx <= blockIndx;
 end
 
 // Update the Block
@@ -262,14 +262,15 @@ always@(posedge sclk) begin
         pixIdx       <= 5'd0;
     end
     else if (write_finish) begin
-        pix_valid <= 1'b0;
-        pixIdx    <= pixIdx + 1'd1;
+        pix_valid    <= 1'b0;
+        pixIdx       <= pixIdx + 1'd1;
     end
     else if (block_valid) begin
-        pix_valid <= 1'b1;
-        pixIdx    <= pixIdx;
+        pix_valid    <= 1'b1;
+        pixIdx       <= pixIdx;
     end
-    if (block_finish) block_finish <= 1'b0;
+    if (block_finish) 
+        block_finish <= 1'b0;
 end
 
 
